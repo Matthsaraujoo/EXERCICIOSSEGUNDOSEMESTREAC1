@@ -1,3 +1,10 @@
+import java.text;
+import java.util.Scanner;
+
+public class AC1 {
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+
 // Classe Carro
 public class Carro {
     // Atributos privados

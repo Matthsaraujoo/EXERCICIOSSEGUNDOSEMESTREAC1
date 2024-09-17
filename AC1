@@ -1,179 +1,107 @@
-import java.text;
-import java.util.Scanner;
+// Classe Funcionario
+public class Funcionario {
+    private String nome;
+    private double salarioBase;
 
-public class AC1 {
+    // Construtor
+    public Funcionario(String nome, double salarioBase) {
+        this.nome = nome;
+        this.salarioBase = salarioBase;
+    }
+
+    // Método para calcular o salário
+    public double calcularSalario() {
+        return salarioBase;
+    }
+
+    // Método para definir o salário base com valor padrão
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    // Método para definir o salário base com valor personalizado
+    public void setSalarioBase() {
+        // Valor padrão definido como 3000, mas pode ser alterado conforme necessário
+        this.salarioBase = 3000;
+    }
+
+    // Getters e Setters
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+}
+
+// Classe Gerente
+public class Gerente extends Funcionario {
+    private double bonus;
+
+    // Construtor
+    public Gerente(String nome, double salarioBase, double bonus) {
+        super(nome, salarioBase);
+        this.bonus = bonus;
+    }
+
+    // Método para calcular o salário com bônus
+    @Override
+    public double calcularSalario() {
+        return getSalarioBase() + (getSalarioBase() * bonus);
+    }
+
+    // Método para definir o bônus
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    // Método para obter o bônus
+    public double getBonus() {
+        return bonus;
+    }
+}
+
+// Classe Diretor
+public class Diretor extends Gerente {
+    private double auxilioMoradia;
+
+    // Construtor
+    public Diretor(String nome, double salarioBase, double bonus, double auxilioMoradia) {
+        super(nome, salarioBase, bonus);
+        this.auxilioMoradia = auxilioMoradia;
+    }
+
+    // Método para calcular o salário com bônus e auxílio-moradia
+    @Override
+    public double calcularSalario() {
+        return super.calcularSalario() + auxilioMoradia;
+    }
+
+    // Método para definir o auxílio-moradia
+    public void setAuxilioMoradia(double auxilioMoradia) {
+        this.auxilioMoradia = auxilioMoradia;
+    }
+
+    // Método para obter o auxílio-moradia
+    public double getAuxilioMoradia() {
+        return auxilioMoradia;
+    }
+}
+
+// Exemplo de uso
+public class Main {
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
+        Funcionario funcionario = new Funcionario("João", 3000);
+        Gerente gerente = new Gerente("Maria", 5000, 0.20);
+        Diretor diretor = new Diretor("Carlos", 10000, 0.15, 2000);
 
-// Classe Carro
-public class Carro {
-    // Atributos privados
-    private String marca;
-    private String modelo;
-    private double precoBase;
-
-    // Construtor padrão
-    public Carro() {
-        this.precoBase = 0.0;
-    }
-
-    // Construtor com parâmetros
-    public Carro(String marca, String modelo, double precoBase) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.precoBase = precoBase;
-    }
-
-    // Métodos getters e setters
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public double getPrecoBase() {
-        return precoBase;
-    }
-
-    // Método para definir o preço base com valor padrão
-    public void setPrecoBase() {
-        this.precoBase = 100.0; // Valor padrão
-    }
-
-    // Método para definir o preço base com valor personalizado
-    public void setPrecoBase(double precoBase) {
-        this.precoBase = precoBase;
-    }
-
-    // Método para calcular o preço
-    public double calcularPreco() {
-        return precoBase;
-    }
-}
-
-// Classe Caminhao
-public class Caminhao {
-    // Atributos privados
-    private String marca;
-    private String modelo;
-    private double precoBase;
-
-    // Construtor padrão
-    public Caminhao() {
-        this.precoBase = 0.0;
-    }
-
-    // Construtor com parâmetros
-    public Caminhao(String marca, String modelo, double precoBase) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.precoBase = precoBase;
-    }
-
-    // Métodos getters e setters
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public double getPrecoBase() {
-        return precoBase;
-    }
-
-    // Método para definir o preço base com valor padrão
-    public void setPrecoBase() {
-        this.precoBase = 150.0; // Valor padrão
-    }
-
-    // Método para definir o preço base com valor personalizado
-    public void setPrecoBase(double precoBase) {
-        this.precoBase = precoBase;
-    }
-
-    // Método para calcular o preço ajustado com a taxa de carga
-    public double calcularPreco(double taxaCarga) {
-        return precoBase * (1 + taxaCarga / 100);
-    }
-}
-
-// Classe Motocicleta
-public class Motocicleta {
-    // Atributos privados
-    private String marca;
-    private String modelo;
-    private double precoBase;
-    private double taxaSeguro;
-
-    // Construtor padrão
-    public Motocicleta() {
-        this.precoBase = 0.0;
-        this.taxaSeguro = 0.0;
-    }
-
-    // Construtor com parâmetros
-    public Motocicleta(String marca, String modelo, double precoBase, double taxaSeguro) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.precoBase = precoBase;
-        this.taxaSeguro = taxaSeguro;
-    }
-
-    // Métodos getters e setters
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public double getPrecoBase() {
-        return precoBase;
-    }
-
-    public void setPrecoBase(double precoBase) {
-        this.precoBase = precoBase;
-    }
-
-    public double getTaxaSeguro() {
-        return taxaSeguro;
-    }
-
-    public void setTaxaSeguro(double taxaSeguro) {
-        this.taxaSeguro = taxaSeguro;
-    }
-
-    // Método para calcular o preço com a taxa de seguro
-    public double calcularPreco() {
-        return precoBase + taxaSeguro;
+        System.out.println("Salário do Funcionário " + funcionario.getNome() + ": R$ " + funcionario.calcularSalario());
+        System.out.println("Salário do Gerente " + gerente.getNome() + ": R$ " + gerente.calcularSalario());
+        System.out.println("Salário do Diretor " + diretor.getNome() + ": R$ " + diretor.calcularSalario());
     }
 }
